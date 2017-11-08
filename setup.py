@@ -1,6 +1,6 @@
 def configuration(parent_package='', top_path=None):
     from numpy.distutils.misc_util import Configuration
-    config = Configuration('O_n',parent_package, top_path)
+    config = Configuration('O_n_MonteCarlo',parent_package, top_path)
     config.add_subpackage('update_O_n')
     return config
 

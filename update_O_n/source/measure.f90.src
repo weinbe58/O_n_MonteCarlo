@@ -2,6 +2,7 @@
 subroutine measure_local(N,d,NN,nd,dims,spins,NM,M,Jc,f_id)
 implicit none
 integer(kind=4), intent(in) :: N,d,NM,f_id,nd
+real(kind=8), intent(in) :: Jc
 real(kind=8), intent(in), dimension(N,0:d-1) :: spins
 integer(kind=4), intent(in), dimension(N,0:2*d-1) :: NN
 integer(kind=4), intent(in), dimension(0:nd-1) :: dims
@@ -148,6 +149,7 @@ end subroutine
 subroutine measure_local_aniso(N,d,NN,nd,dims,spins,NM,M,Jc,delta,f_id)
 implicit none
 integer(kind=4), intent(in) :: N,d,NM,f_id,nd
+real(kind=8), intent(in) :: Jc,delta
 real(kind=8), intent(in), dimension(N,0:d-1) :: spins
 integer(kind=4), intent(in), dimension(N,0:2*d-1) :: NN
 integer(kind=4), intent(in), dimension(0:nd-1) :: dims
