@@ -37,15 +37,15 @@ for i in range(5):
 	else:
 		Ms = mc.hybrid(beta,mcsteps)
 
-line = (" ".join(["{:30.15e}" for i in range(5)]))+"\n"
+line = (" ".join(["{:30.15e}" for i in range(9)]))+"\n"
 
 with open(filename,"w") as IO:
 	for i in range(nbin):
 		print "bin: {}".format(i+1)
 		if metrop:
-			Ms = mc.metropolis(beta,mcsteps,Nm=5,dm=1)
+			Ms = mc.metropolis(beta,mcsteps,Nm=9,dm=1)
 		else:
-			Ms = mc.hybrid(beta,mcsteps,Nm=5,dm=1)
+			Ms = mc.hybrid(beta,mcsteps,Nm=9,dm=1)
 
 		Mbin = Ms.mean(axis=0)
 		IO.write(line.format(*Mbin))
