@@ -113,7 +113,7 @@ do i=1,N
 do j1=0,d-1
 if(NN(i,2*j1) .ge. 0) then
 j2 = NN(i,2*j1)+1
-temp(1) = temp(1) + (dot_product(spins(i,:),spins(j2,:)))
+temp(1) = temp(1) + Jc*(dot_product(spins(i,:),spins(j2,:)))
 end if
 end do
 end do
