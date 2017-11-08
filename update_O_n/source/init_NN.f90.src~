@@ -1,0 +1,90 @@
+
+subroutine get_sq_NN(L,d,N,nn,stag)
+implicit none
+integer(kind=4), intent(in) :: d,N
+integer(kind=4), intent(in), dimension(0:d-1) :: L
+integer(kind=4), intent(out), dimension(0:N-1,0:(2*d-1)) :: nn
+integer(kind=1), intent(out), dimension(0:N-1) :: stag
+integer(kind=4), dimension(0:d-1) :: coor,nn1,nn2,LL
+integer(kind=4) :: i,j,e
+
+LL(0) = 1
+do i=1,d-1
+LL(i) = LL(i-1)*L(i-1)
+end do
+
+do i=0,N-1
+e=0
+do j=0,d-1
+coor(j) = modulo(i/LL(j),L(j))
+e=e+coor(j)
+end do
+
+stag(i) = int((-1)**e,1)
+
+do j=0,d-1
+nn1(:) = coor(:)
+nn2(:) = coor(:)
+nn1(j) = modulo(nn1(j)+1,L(j))
+nn2(j) = modulo(nn2(j)-1,L(j))
+nn1 = nn1*LL
+nn2 = nn2*LL
+nn(i,2*j) = sum(nn1)
+nn(i,2*j+1) = sum(nn2)
+end do
+end do
+
+
+end subroutine
+
+
+
+
+subroutine get_sq_NN_open(L,d,N,nn,stag)
+implicit none
+integer(kind=4), intent(in) :: d,N
+integer(kind=4), intent(in), dimension(0:d-1) :: L
+integer(kind=4), intent(out), dimension(0:N-1,0:(2*d-1)) :: nn
+integer(kind=1), intent(out), dimension(0:N-1) :: stag
+integer(kind=4), dimension(0:d-1) :: coor,nn1,nn2,LL
+integer(kind=4) :: i,j,e
+
+LL(0) = 1
+do i=1,d-1
+LL(i) = LL(i-1)*L(i-1)
+end do
+
+do i=0,N-1
+e=0
+do j=0,d-1
+coor(j) = modulo(i/LL(j),L(j))
+e=e+coor(j)
+end do
+
+stag(i) = int((-1)**e,1)
+
+do j=0,d-1
+
+if(coor(j)+1 .lt. L(j)) then
+nn1(:) = coor(:)
+nn1(j) = nn1(j)+1
+nn1 = nn1*LL
+nn(i,2*j) = sum(nn1)
+else
+nn(i,2*j) = -1
+end if
+
+if(coor(j)-1 .ge. 0) then
+nn2(:) = coor(:)
+nn2(j) = modulo(nn2(j)-1,L(j))
+nn2 = nn2*LL
+nn(i,2*j+1) = sum(nn2)
+else
+nn(i,2*j+1) = -1
+end if
+
+end do
+end do
+
+
+end subroutine

@@ -1,0 +1,48 @@
+
+function <name=i,f>_pop(stack,N)
+implicit none
+<type=integer(kind=4),real(kind=8)> :: <name=i,f>_pop
+integer(kind=4), intent(in) :: N
+<type>, intent(inout), dimension(0:N) :: stack
+integer(kind=4) :: top
+
+
+top=int(stack(0),4)
+if(top.gt.0) then
+<name=i,f>_pop=stack(top)
+stack(top)=0
+top=top-1
+stack(0)=<int,float>(top)
+else
+<name=i,f>_pop=0
+end if
+
+end function
+
+
+
+
+subroutine <name>_append(stack,N,element)
+implicit none
+<type>, intent(in) ::  element
+integer(kind=4), intent(in) :: N
+<type>, intent(inout), dimension(0:N) :: stack
+integer(kind=4) :: top
+
+top=int(stack(0),4)
+if(top+1.gt.N) then
+print*, "stack overflow"
+stop
+else
+top=top+1
+stack(top)=element
+stack(0)=<int,float>(top)
+end if
+
+end subroutine
+
+
+
+
+
+

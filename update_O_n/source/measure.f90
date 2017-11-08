@@ -1,0 +1,114 @@
+
+subroutine measure_local(N,d,NN,nd,dims,spins,NM,M,f_id)
+implicit none
+integer(kind=4), intent(in) :: N,d,NM,f_id,nd
+real(kind=8), intent(in), dimension(N,0:d-1) :: spins
+integer(kind=4), intent(in), dimension(N,0:2*d-1) :: NN
+integer(kind=4), intent(in), dimension(0:nd-1) :: dims
+real(kind=8), intent(inout), dimension(NM) :: M
+real(kind=8), dimension(0:d-1) :: md
+real(kind=8), dimension(NM) :: temp
+real(kind=8) :: t,r
+integer(kind=4) :: i,j1,j2
+
+
+
+
+select case (d)
+case(2)
+
+select case (NM)
+case(1)
+
+md = sum(spins,1)/N
+r = dsqrt(dot_product(md,md))
+M(1)=M(1)+r
+t=datan2(md(1),md(0))
+M(2)=M(2)+r*dcos(f_id*t)
+
+case(2)
+temp(1)=0.0d0
+
+do i=1,N
+do j1=0,d-1
+if(NN(i,2*j1) .ge. 0) then
+j2 = NN(i,2*j1)+1
+temp(1) = temp(1) + (dot_product(spins(i,:),spins(j2,:)))
+end if
+end do
+end do
+
+M(1) = M(1) + temp(1)
+M(2) = M(2) + temp(1)**2
+
+case(3)
+
+do i=1,N
+do j1=0,d-1
+if(NN(i,2*j1) .ge. 0) then
+j2 = NN(i,2*j1)+1
+temp(1) = temp(1) + (dot_product(spins(i,:),spins(j2,:)))
+end if
+end do
+end do
+
+M(1) = temp(1)/N
+M(2) = temp(1)**2/(N*N)
+md = sum(spins,1)/N
+M(3) = dsqrt(dot_product(md,md))
+
+
+end select
+
+case(3)
+select case (Nm)
+
+case(4)
+
+md = sum(spins,1)/N
+M(1) = dot_product(md(0:1),md(0:1))
+M(2) = M(1)**2
+M(3) = md(2)**2
+M(4) = M(3)**2
+
+case(8)
+
+md = sum(spins,1)/N
+M(1) = dot_product(md,md)
+M(2) = M(1)**2
+M(3) = md(2)**2
+M(4) = M(3)**2
+
+do i=0,dims(2)-1
+j1 = 1 + i*dims(0)*dims(1)
+j2 = j1 + dims(0)*dims(1) - 1
+
+md = sum(spins(j1:j2,:),1)/(dims(0)*dims(1))
+temp(5) = dot_product(md,md)
+temp(6) = temp(5)**2
+temp(7) = md(2)**2
+temp(8) = temp(7)**2
+
+M(5) = M(5) + temp(5)
+M(6) = M(6) + temp(6)
+M(7) = M(7) + temp(7)
+M(8) = M(8) + temp(8)
+end do
+
+M(5) = M(5) / dims(2)
+M(6) = M(6) / dims(2)
+M(7) = M(7) / dims(2)
+M(8) = M(8) / dims(2)
+
+end select
+
+end select
+
+end subroutine
+
+
+
+
+
+
+
