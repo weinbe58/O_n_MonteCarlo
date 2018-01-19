@@ -17,7 +17,7 @@ real(kind=8) :: dE,P
 
 Ms = 0.0d0
 
-do i=0,mcsteps
+do i=0,mcsteps-1
 
 ! monte carlo step
 do j=0,nmetrop*N-1
@@ -101,7 +101,7 @@ Ms = 0.0d0
 
 diff_delta = delta - Jc
 
-do i=0,mcsteps
+do i=0,mcsteps-1
 
 ! monte carlo step
 do j=0,nmetrop*N-1

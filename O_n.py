@@ -44,7 +44,7 @@ class O_n:
 			Nms = 1
 			dm=1
 			measure=False
-		Ms = np.empty((Nms,Nm),dtype=np.float64,order="F")
+		Ms = np.zeros((Nms,Nm),dtype=np.float64,order="F")
 		if self.delta is not None and self.delta != self.J:
 			metropolis_aniso(self.spins,self.NN,self.dims,measure,Ms,beta,self.J,self.delta,mcsteps,dm,f_id,h)
 		else:
@@ -59,7 +59,7 @@ class O_n:
 			Nms = 1
 			dm=1
 			measure=False
-		Ms = np.empty((Nms,Nm),dtype=np.float64,order="F")
+		Ms = np.zeros((Nms,Nm),dtype=np.float64,order="F")
 		if self.delta is not None and self.delta != self.J:
 			raise ValueError("can't use Swenson-Wang updates with anisotrpy, use either 'metropolis' or 'hybrid_aniso' updates")
 		else:
@@ -75,7 +75,7 @@ class O_n:
 			Nms = 1
 			dm = 1
 			measure=False
-		Ms = np.empty((Nms,Nm),dtype=np.float64,order="F")
+		Ms = np.zeros((Nms,Nm),dtype=np.float64,order="F")
 		if self.delta is not None and self.delta != self.J:
 			raise ValueError("can't use Wolff updates with anisotrpy, use either 'metropolis' or 'hybrid_aniso' updates")
 		else:
@@ -93,7 +93,7 @@ class O_n:
 			Nms = 1
 			dm = 1
 			measure=False
-		Ms = np.empty((Nms,Nm),dtype=np.float64,order="F")
+		Ms = np.zeros((Nms,Nm),dtype=np.float64,order="F")
 		if self.delta is not None and self.delta != self.J:
 			hybrid_aniso(self.spins,self.NN,self.dims,measure,Ms,beta,self.J,self.delta,mcsteps,n_wolff,n_metrop,dm,f_id,h)
 		else:
