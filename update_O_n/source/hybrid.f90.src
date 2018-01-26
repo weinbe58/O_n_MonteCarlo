@@ -65,7 +65,7 @@ end select
 c = 0
 
 k=int(floor(ranf()*N))
-call flip_cluster(N,d,spins,z,NN,beta,Jc,f_id,h,spin(0:0),k,c,.false.)
+call flip_cluster(N,d,spins,z,NN,beta,Jc,f_id,h,spin,k,c,.false.)
 
 end do
 
