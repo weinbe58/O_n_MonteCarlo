@@ -91,7 +91,6 @@ real(kind=8), intent(inout), dimension(0:NMs-1,NM) :: Ms
 integer(kind=4), intent(in), dimension(0:N-1,0:z-1) :: NN
 integer(kind=4), intent(in), dimension(0:nd-1) :: dims
 real(kind=8), dimension(0:d-1) :: spin,diff
-real(kind=8), dimension(0:N-1) :: spinsz
 integer(kind=4), dimension(0:N-1) :: c
 real(kind=8), external :: ranf,local
 integer(kind=4) :: i,j,k,l,o
@@ -137,19 +136,20 @@ end if
 
 end do
 
-spin=1
-spinsz(:) = sign(1.0d0,spins(:,d-1))
+spin=0.0d0
+spin(d-1)=1.0d0
 
 do j=0,nwolff-1
 
 ! reset cluster marker
 c = 0
 k=int(floor(ranf()*N))
-call flip_cluster(N,1,spinsz,z,NN,beta,delta,f_id,h,spin(0:0),k,c,.false.)
+call flip_cluster(N,d,spins,z,NN,beta,delta,f_id,h,spin,k,c,.false.)
+
 
 end do
 
-spins(:,d-1) = sign(spins(:,d-1),spinsz)
+spins(:,d-1) = spinsz(:)
 
 ! measure
 if(modulo(i,dm) .eq. 0 .and. measure) then
