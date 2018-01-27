@@ -149,7 +149,7 @@ call flip_cluster(N,d,spins,z,NN,beta,delta,f_id,h,spin,k,c,.false.)
 
 end do
 
-spins(:,d-1) = spinsz(:)
+
 
 ! measure
 if(modulo(i,dm) .eq. 0 .and. measure) then
