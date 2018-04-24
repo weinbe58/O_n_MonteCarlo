@@ -139,6 +139,45 @@ M(9) = M(9) + temp(5)*temp(1)
 
 end select
 
+case(4)
+
+select case (Nm)
+
+
+case(9)
+
+temp=0.0d0
+
+do i=1,N
+do j1=0,d-1
+if(NN(i,2*j1) .ge. 0) then
+j2 = NN(i,2*j1)+1
+temp(1) = temp(1) + spins(i,3)*spins(j2,3)
+end if
+end do
+end do
+
+md = sum(spins,1)/N
+
+temp(2) = md(3)**2
+temp(3) = temp(2)**2
+temp(4) = dot_product(md(0:2),md(0:2))
+temp(5) = temp(4)**2
+
+
+M(1) = M(1) + temp(1)
+M(2) = M(2) + temp(2)
+M(3) = M(3) + temp(3)
+M(4) = M(4) + temp(2)*temp(1)
+M(5) = M(5) + temp(3)*temp(1)
+M(6) = M(6) + temp(4)
+M(7) = M(7) + temp(5)
+M(8) = M(8) + temp(4)*temp(1)
+M(9) = M(9) + temp(5)*temp(1)
+
+
+end select
+
 end select
 
 end subroutine
